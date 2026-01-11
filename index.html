@@ -68,6 +68,33 @@
             pointer-events: none;
         }
 
+        /* EMOJIS FLOTANTES DE FONDO */
+        .floating-emojis {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px;
+            font-size: 2rem;
+            animation: floatUp linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
         /* Contenedor scrolleable interno SOLO SI ES NECESARIO */
         .scroll-wrapper {
             position: absolute;
@@ -101,11 +128,12 @@
             flex-grow: 1; 
         }
 
-        /* --- MODIFICACIÓN ESPECÍFICA PARA EL HOME --- */
+        /* --- MODIFICACIÓN ESPECÍFICA PARA EL HOME (Botones más abajo) --- */
         #page-home .content-wrapper {
             justify-content: flex-start; /* Alineación superior */
-            padding-top: 35vh; /* CAMBIO: 35% de espacio superior (antes 40%) */
+            padding-top: 35vh; /* Bajamos los botones MÁS ABAJO (antes 22vh) */
             padding-bottom: 10px;
+            height: 100%;
         }
         /* -------------------------------------------- */
 
@@ -167,6 +195,11 @@
             0% { box-shadow: 0 0 10px var(--color-yellow); } 
             50% { box-shadow: 0 0 25px var(--color-yellow), 0 0 10px var(--color-red); } 
             100% { box-shadow: 0 0 10px var(--color-yellow); } 
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
 
         /* * 🧩 UI COMPONENTS */
@@ -235,27 +268,33 @@
             gap: 8px;
             text-decoration: none;
             transition: all 0.2s ease;
+            
+            /* Efecto Shimmer */
+            background: linear-gradient(110deg, #ffffff 40%, #e0e0e0 45%, #ffffff 50%);
+            background-size: 200% 100%;
+            animation: border-dance 2s infinite, shimmer 4s infinite linear;
         }
 
-        .btn-menu { animation: border-dance 2s infinite; }
         .btn-menu:active, .btn-action:active, .btn-back:active {
             transform: translate(2px, 2px);
             box-shadow: 1px 1px 0 #000;
             animation: jelly 0.4s;
         }
 
-        .btn-intro { background: #fff; border-color: var(--color-fuchsia); color: var(--color-fuchsia); box-shadow: 3px 3px 0 var(--color-fuchsia); }
-        .btn-ubi { background: var(--color-green); color: #fff; text-shadow: 1px 1px 0 #000; }
-        .btn-show { background: var(--color-fuchsia); color: #fff; text-shadow: 1px 1px 0 #000; }
-        .btn-local { background: var(--color-yellow); color: #000; }
-        .btn-regalo { background: var(--color-red); color: #fff; text-shadow: 1px 1px 0 #000; }
-        .btn-galeria { background: var(--color-blue); color: #fff; text-shadow: 1px 1px 0 #000; }
+        .btn-intro { border-color: var(--color-fuchsia); color: var(--color-fuchsia); box-shadow: 3px 3px 0 var(--color-fuchsia); }
+        .btn-ubi { background: var(--color-green); color: #fff; text-shadow: 1px 1px 0 #000; background-image: none; }
+        .btn-show { background: var(--color-fuchsia); color: #fff; text-shadow: 1px 1px 0 #000; background-image: none; }
+        .btn-local { background: var(--color-yellow); color: #000; background-image: none; }
+        .btn-regalo { background: var(--color-red); color: #fff; text-shadow: 1px 1px 0 #000; background-image: none; }
+        .btn-galeria { background: var(--color-blue); color: #fff; text-shadow: 1px 1px 0 #000; background-image: none; }
         .btn-rsvp { 
             background: #fff; 
             border: 3px solid var(--color-green); 
             color: var(--color-green); 
-            animation: pulse-glow 2s infinite, border-dance 1.5s infinite; 
+            animation: pulse-glow 2s infinite, border-dance 1.5s infinite, shimmer 3s infinite linear; 
             box-shadow: 0 0 10px var(--color-green); 
+            background-image: linear-gradient(110deg, #ffffff 40%, #e8ffe8 45%, #ffffff 50%);
+            background-size: 200% 100%;
         }
 
         .btn-back {
@@ -290,13 +329,16 @@
             max-height: 50vh; 
         }
 
+        /* --- CORRECCIÓN DE VIDEOS 9:16 (Pantalla casi completa) --- */
         #page-show .video-container, 
         #page-local .video-container {
-            width: 95% !important;
-            height: auto;
-            aspect-ratio: 16/9; /* Mantiene proporción para evitar scroll gigante */
-            max-height: 60vh;
+            width: auto !important;
+            height: 75vh !important; /* Altura considerable (75% de la ventana) */
+            aspect-ratio: 9/16; /* Formato vertical estricto */
+            max-width: 90vw; /* Que no se salga del ancho en móviles */
+            max-height: 80vh;
         }
+        /* -------------------------------------------------------- */
 
         video { width: 100%; height: auto; display: block; }
 
@@ -369,15 +411,15 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            opacity: 0.3;
-            padding-bottom: 10px;
+            opacity: 0.8; /* Aumenté un poco la opacidad para que se note mejor */
+            padding-bottom: 15px; /* Un poco más de aire abajo */
             padding-top: 10px;
             transition: opacity 0.3s ease;
         }
         .site-footer:hover { opacity: 1; }
         .footer-link {
             font-size: 0.70rem; 
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -410,6 +452,9 @@
         <!-- 🏠 HOME / MENÚ PRINCIPAL -->
         <section id="page-home" class="active">
             <div class="overlay-bg"></div>
+            <!-- Nuevo: Emojis flotantes -->
+            <div class="floating-emojis" id="floating-emojis"></div>
+            
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
                     <h1></h1>
@@ -425,10 +470,10 @@
                     <button class="btn-menu btn-galeria" onclick="navTo('page-galeria')"><i class="fas fa-images"></i> Galería</button>
                     <button class="btn-menu btn-rsvp" onclick="navTo('page-confirmar')">✅ CONFIRMAR ASISTENCIA</button>
 
-                    <!-- Footer Transparente -->
+                    <!-- Footer Modificado -->
                     <footer class="site-footer">
                         <a href="https://wa.me/59165620007" target="_blank" class="footer-link">
-                            <i class="fab fa-whatsapp"></i> Diseñado por DevCreator
+                            <i class="fab fa-whatsapp"></i> HUNTER DESIGNER
                         </a>
                     </footer>
                 </div>
@@ -587,7 +632,10 @@
                 if(scrollWrapper) scrollWrapper.scrollTop = 0;
 
                 if(pageId === 'page-galeria') loadGallery();
-                if(pageId === 'page-home') launchConfetti();
+                if(pageId === 'page-home') {
+                    launchConfetti();
+                    initFloatingEmojis(); // Reiniciar emojis
+                }
             }
         }
 
@@ -642,7 +690,7 @@
             e.preventDefault();
             const name = document.getElementById('guest-name').value;
             const status = document.getElementById('guest-status').value;
-            const phone = "59165620007"; 
+            const phone = "59168140410"; 
             const message = `¡Hola! Soy *${name}*. Confirmo para el cumpleaños de Miguel Matías: ${status}`;
             const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
@@ -661,7 +709,7 @@
         resizeCanvas();
 
         function createParticle() {
-            const colors = ['#2962ff', '#ffeb3b', '#ff1744', '#76ff03', '#d500f9'];
+            const colors = ['#2962ff', '#ffeb3b', '#ff1744', '#76ff03', '#d500f9', '#00e5ff', '#ff9100'];
             return {
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height - canvas.height,
@@ -696,12 +744,40 @@
 
         function launchConfetti() {
             particles = [];
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 70; i++) {
                 particles.push(createParticle());
             }
         }
         updateConfetti();
         launchConfetti();
+
+        // --- EMOJIS FLOTANTES ---
+        function initFloatingEmojis() {
+            const container = document.getElementById('floating-emojis');
+            if(!container) return;
+            container.innerHTML = ''; // Limpiar
+            
+            const emojis = ['🎈', '🎂', '🎉', '🌟', '🎁', '🍰'];
+            const numberOfEmojis = 15;
+
+            for (let i = 0; i < numberOfEmojis; i++) {
+                const el = document.createElement('div');
+                el.classList.add('floating-emoji');
+                el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Aleatoriedad
+                const left = Math.random() * 100;
+                const animDuration = Math.random() * 5 + 5; // 5-10s
+                const delay = Math.random() * 5; 
+                
+                el.style.left = left + '%';
+                el.style.animationDuration = animDuration + 's';
+                el.style.animationDelay = delay + 's';
+                
+                container.appendChild(el);
+            }
+        }
+        initFloatingEmojis(); // Iniciar al carga
     </script>
 </body>
 </html>
