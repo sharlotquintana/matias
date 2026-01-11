@@ -85,10 +85,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Centra el contenido verticalmente */
+            justify-content: center; /* Por defecto centrado */
             padding: 20px;
             padding-bottom: 20px; 
         }
+
+        /* --- MODIFICACIÓN ESPECÍFICA PARA EL HOME --- */
+        #page-home .content-wrapper {
+            justify-content: flex-start; /* Alineación superior */
+            padding-top: 40vh; /* Dejamos el 40% superior vacío */
+            padding-bottom: 10px; /* Reducimos padding inferior para ganar espacio */
+        }
+        /* -------------------------------------------- */
 
         /* Secciones */
         section {
@@ -208,19 +216,23 @@
             background: #fff;
             border: 3px solid #000;
             border-radius: 25px; /* Más redondeado */
-            padding: 10px 15px;
-            margin: 6px 0;
+            
+            /* REDUCIDO PARA QUE ENTREN EN PANTALLA SIN SCROLL */
+            padding: 8px 12px;
+            margin: 4px 0;
+            font-size: 0.95rem; /* Letra un poco más pequeña */
+            
             width: 90%;
             max-width: 300px;
             font-family: var(--font-title);
-            font-size: 1.1rem;
+            
             color: #000;
             text-transform: uppercase;
             cursor: pointer;
             position: relative;
             
             /* Sombra sólida inicial */
-            box-shadow: 4px 4px 0 rgba(0,0,0,1);
+            box-shadow: 3px 3px 0 rgba(0,0,0,1); /* Sombra ligeramente reducida */
             
             display: flex;
             align-items: center;
@@ -245,7 +257,7 @@
         }
 
         /* Colores Botones */
-        .btn-intro { background: #fff; border-color: var(--color-fuchsia); color: var(--color-fuchsia); box-shadow: 4px 4px 0 var(--color-fuchsia); }
+        .btn-intro { background: #fff; border-color: var(--color-fuchsia); color: var(--color-fuchsia); box-shadow: 3px 3px 0 var(--color-fuchsia); }
         .btn-ubi { background: var(--color-green); color: #fff; text-shadow: 1px 1px 0 #000; }
         .btn-show { background: var(--color-fuchsia); color: #fff; text-shadow: 1px 1px 0 #000; }
         .btn-local { background: var(--color-yellow); color: #000; }
@@ -268,6 +280,9 @@
             margin-top: 20px;
             background: #f0f0f0;
             z-index: 10;
+            /* Restauramos tamaño normal para el botón de volver en otras páginas */
+            padding: 10px 15px;
+            font-size: 1.1rem;
         }
 
         /* MAPA */
@@ -377,18 +392,23 @@
         
         #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
 
-        /* FOOTER BONITO, SUTIL Y AL FINAL */
+        /* FOOTER CASI OCULTO */
         .site-footer {
-            margin-top: auto; /* Empuja el footer hacia el final del contenedor flexible */
+            margin-top: auto; /* Empuja el footer hacia el final del contenido */
             width: 100%;
             display: flex;
             justify-content: center;
-            opacity: 0.8;
-            padding-bottom: 20px; /* Un poco de aire abajo */
+            opacity: 0.3; /* CASI INVISIBLE */
+            padding-bottom: 10px; /* Pegado abajo */
+            padding-top: 10px; /* Reducido también */
+            transition: opacity 0.3s ease;
+        }
+        .site-footer:hover {
+            opacity: 1; /* Se muestra al pasar el mouse */
         }
         .footer-link {
-            font-size: 0.75rem; 
-            color: rgba(255, 255, 255, 0.6); /* Un poco más visible por defecto */
+            font-size: 0.70rem; 
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -396,20 +416,13 @@
             font-family: sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
-            background: transparent; /* TOTALMENTE TRANSPARENTE */
+            background: transparent;
             padding: 5px 10px;
             border-radius: 15px;
         }
         .footer-link i {
             font-size: 0.9rem;
             color: #25D366; 
-        }
-        .footer-link:hover {
-            color: rgba(255, 255, 255, 1);
-            transform: scale(1.05);
-            /* Opcional: Agregar un fondo sutil solo al pasar el mouse para feedback */
-            /* background: rgba(0, 0, 0, 0.2); */
         }
     </style>
 </head>
@@ -446,7 +459,7 @@
                     <button class="btn-menu btn-galeria" onclick="navTo('page-galeria')"><i class="fas fa-images"></i> Galería</button>
                     <button class="btn-menu btn-rsvp" onclick="navTo('page-confirmar')">✅ CONFIRMAR ASISTENCIA</button>
 
-                    <!-- Footer Nuevo -->
+                    <!-- Footer Transparente -->
                     <footer class="site-footer">
                         <a href="https://wa.me/59165620007" target="_blank" class="footer-link">
                             <i class="fab fa-whatsapp"></i> Diseñado por DevCreator
