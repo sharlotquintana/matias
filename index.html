@@ -223,6 +223,14 @@
             text-align: center;
         }
 
+        h3 {
+            font-family: var(--font-title);
+            color: #f7ffb1;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px #000;
+            text-align: center;
+        }
         p {
             color: white;
             font-size: 1rem;
@@ -464,7 +472,7 @@
                     <!-- Menú Vertical -->
                     <button class="btn-menu btn-intro" onclick="navTo('page-invitacion')"><i class="fas fa-envelope-open-text"></i> 💌 INVITACIÓN</button>
                     <button class="btn-menu btn-ubi" onclick="navTo('page-ubicacion')"><i class="fas fa-map-marker-alt"></i> Ubicación</button>
-                    <button class="btn-menu btn-show" onclick="navTo('page-show')"><i class="fas fa-star"></i> Show</button>
+                    <button class="btn-menu btn-show" onclick="navTo('page-show')"><i class="fas fa-star"></i> Planeta Show</button>
                     <button class="btn-menu btn-local" onclick="navTo('page-local')"><i class="fas fa-home"></i> El Local</button>
                     <button class="btn-menu btn-regalo" onclick="navTo('page-regalos')"><i class="fas fa-gift"></i> Regalos</button>
                     <button class="btn-menu btn-galeria" onclick="navTo('page-galeria')"><i class="fas fa-images"></i> Galería</button>
@@ -491,7 +499,8 @@
                     <div class="invitation-text">
                         ¡Hola! Aquí <strong>Miguel Matías reportándose…</strong>.<br><br>
                         ¡Alerta de celebración! 🎉 <br> <strong>Cumplo 9 años.</strong>! 🎉<br>
-                        Te invito a unirte a mi cumpleaños, donde habrá diversión NIVEL SUPER HEROE: juegos increíbles, música genial y muchas risas aseguradas.<br><br>
+                        Te invito a unirte a mi cumpleaños, donde habrá diversión NIVEL SUPER HEROE: juegos increíbles, música genial sorpresas y muchas risas aseguradas.<br>
+                        Se realizara el día domingo 25 de enero, 2026 
                         ¡Tu compañía será el mejor regalo del día! 🎁😊
                     </div>
 
@@ -508,6 +517,7 @@
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
                     <h2>¡Aquí es la Fiesta!</h2>
+                    <h3>Salon "EL RESBALIN" Av.Buch Nº 1951</h3>
                     <div class="map-container">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d234.5678901234567!2d-68.12086!3d-16.50227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915f2067c1cef5d5%3A0x22edd394e983d60c!2sEl%20Resbalin!5e0!3m2!1ses-419!2sbo!4v1705123456789!5m2!1ses-419!2sbo" allowfullscreen="" loading="lazy"></iframe>
                     </div>
@@ -525,7 +535,7 @@
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
                     <h2>¡El Show Comienza!</h2>
-
+                    <h3>¡Con los mejores payasos de la diversión "Los Dukes" los que estan marcando tendencia en tiktok </h3>
                     <div class="video-container">
                         <iframe 
                             src="https://drive.google.com/file/d/1wvbq0gLbLFHa4p4nACU9TUQqrmL4qeZT/preview"
@@ -544,7 +554,8 @@
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
                     <h2>Nuestro Local</h2>
-
+                    <h3>El salón donde la diversión se desliza sin límites.<br> Juegos, luces, música y momentos mágicos<br> para celebrar a lo grande.
+El Resbalín — ¡La aventura comienza aquí!</h3>
                     <div class="video-container">
                         <iframe 
                             src="https://drive.google.com/file/d/1_iTIvsgkn0BIrJQm4QkyYnKXHFWkFnie/preview"
@@ -562,7 +573,10 @@
             <div class="overlay-bg"></div>
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
-                    <h2>Sugerencia 🎁</h2>
+                    <h2>Muchas Gracias! 🎁</h2>
+                    <h3>A Deadpool le encantan los amigos… los regalos no tanto.<br>
+                         Tu presencia es el verdadero súper poder. <br>
+                         Si deseas dejar un detallito, el QR te guía.</h3>
                     <div class="qr-container">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ListaRegalosMatias" alt="QR Regalos" style="width:140px; height:140px;">
                     </div>
@@ -641,12 +655,12 @@
 
         // --- GALERÍA ---
         const galleryImages = [
-            '1.png',
-            '2.png',
-            '3.png',
-            '4.png',
-            '5.png',
-            '6.png'
+            '1.jpg',
+            '2.jpg',
+            '3.jpg',
+            '4.jpg',
+            '5.jpg',
+            '6.jpg'
         ];
 
         let currentImageIndex = 0;
