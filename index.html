@@ -313,6 +313,34 @@
             font-size: 1.1rem;
         }
 
+        /* --- BOTÓN DE MÚSICA FLOTANTE --- */
+        .btn-music {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100; /* Por encima de todo */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid var(--color-fuchsia);
+            box-shadow: 2px 2px 0 var(--color-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--color-fuchsia);
+            transition: all 0.3s ease;
+        }
+        
+        /* Animación cuando está sonando */
+        .btn-music.playing {
+            animation: jelly 1s infinite, border-dance 2s infinite;
+            background: var(--color-yellow);
+            color: var(--color-red);
+        }
+
         .map-container {
             width: 100%;
             height: 250px;
@@ -344,53 +372,66 @@
         #page-show .content-wrapper,
         #page-local .content-wrapper {
             justify-content: flex-start; /* Alineamos arriba para aprovechar espacio */
-            padding: 10px 15px; /* Reducimos padding */
-            padding-top: 20px;
+            padding: 0; /* Eliminamos padding lateral/vertical excesivo */
+            padding-top: 15px;
+            height: 100vh; /* Forzamos altura completa */
+            overflow: hidden; /* Evitamos scroll innecesario */
         }
 
         /* Reducción de textos solo para estas páginas */
         #page-show h2, #page-local h2 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 1.1rem;
+            margin-bottom: 2px;
             margin-top: 0;
             z-index: 5;
+            text-shadow: 1px 1px 2px #000;
         }
         
         #page-show h3, #page-local h3 {
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            line-height: 1.2;
-            max-width: 95%;
-            /* Limitamos líneas para que no empujen el video */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            line-height: 1.1;
+            max-width: 90%;
+            white-space: nowrap;
             overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* El contenedor de video GIGANTE */
+        /* El contenedor de video GIGANTE - 9:16 a 85% */
         #page-show .video-container, 
         #page-local .video-container {
+            /* Forzar el 85% de la altura de la ventana */
+            height: 85vh !important;
+            
+            /* Calcular el ancho basado en la altura para mantener 9:16 */
             width: auto !important;
-            height: 82vh !important; /* 82-85% Altura */
-            aspect-ratio: 9/16; /* Formato TikTok/Reels */
+            aspect-ratio: 9/16; 
             
-            max-width: 95vw; /* Casi todo el ancho si es necesario */
-            max-height: none; /* Quitamos límite anterior */
+            max-width: 98vw; /* Asegurar que no se salga del ancho en móviles */
+            max-height: none; 
             
-            border-width: 2px; /* Borde más fino para ahorrar pixels */
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            margin-bottom: 5px;
+            border: 2px solid var(--color-yellow); /* Borde fino */
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            margin-bottom: 0;
+            background: #000; /* Fondo negro para rellenar */
+            
+            /* Centrar el iframe dentro del contenedor */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Botón volver más compacto en estas páginas */
+        /* Botón volver más compacto y flotante abajo */
         #page-show .btn-back,
         #page-local .btn-back {
-            padding: 5px 15px;
+            position: absolute;
+            bottom: 15px;
+            padding: 8px 20px;
             font-size: 0.9rem;
-            margin-top: 5px;
+            margin: 0;
             width: auto;
             min-width: 120px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
         /* ------------------------------------------------------------- */
 
@@ -491,6 +532,16 @@
 <body>
     <canvas id="confetti-canvas"></canvas>
 
+    <!-- 🎵 MÚSICA DE FONDO (Traído de consonido.html, sin loop) -->
+    <audio id="bg-music">
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 🎵 BOTÓN FLOTANTE MÚSICA -->
+    <div id="music-btn" class="btn-music" onclick="toggleMusic()">
+        <i class="fas fa-volume-mute"></i>
+    </div>
+
     <!-- Lightbox (Carrusel) -->
     <div id="lightbox">
         <button class="close-lightbox" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
@@ -575,13 +626,13 @@
             </div>
         </section>
 
-        <!-- 🎬 SHOW -->
+        <!-- 🎬 SHOW - VIDEO AJUSTADO 85% -->
         <section id="page-show">
             <div class="overlay-bg"></div>
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
                     <h2>¡El Show Comienza!</h2>
-                    <h3>¡Con los mejores payasos de la diversión "Los Dukes"!</h3>
+                    <h3>"Los Dukes"</h3>
                     <div class="video-container">
                         <iframe 
                             src="https://drive.google.com/file/d/1wvbq0gLbLFHa4p4nACU9TUQqrmL4qeZT/preview"
@@ -594,13 +645,13 @@
             </div>
         </section>
 
-        <!-- 🏠 LOCAL -->
+        <!-- 🏠 LOCAL - VIDEO AJUSTADO 85% -->
         <section id="page-local">
             <div class="overlay-bg"></div>
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
                     <h2>Nuestro Local</h2>
-                    <h3>El salón donde la diversión se desliza sin límites.<br> Juegos, luces y música.</h3>
+                    <h3>Diversión sin límites.</h3>
                     <div class="video-container">
                         <iframe 
                             src="https://drive.google.com/file/d/1_iTIvsgkn0BIrJQm4QkyYnKXHFWkFnie/preview"
@@ -673,6 +724,68 @@
     </div>
 
     <script>
+        // --- CONTROL DE MÚSICA ACTUALIZADO ---
+        // Se usa la lógica robusta de activación pero con el archivo y volumen de consonido.html
+        const audio = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        let isPlaying = false;
+
+        // Ajuste de volumen traído de consonido.html
+        audio.volume = 0.5;
+
+        // Intentar cargar el audio inmediatamente
+        audio.load();
+
+        function startMusic() {
+            if (!isPlaying) {
+                // Al quitar el loop en el HTML, el audio se detendrá solo al terminar.
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                    musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }).catch(e => {
+                    console.log("Autoplay bloqueado (normal), esperando interacción.");
+                });
+            }
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                musicBtn.classList.remove('playing');
+                musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                startMusic();
+            }
+        }
+        
+        // Listener para detectar cuando termina el audio y actualizar el botón
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            musicBtn.classList.remove('playing');
+            musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            // No reiniciamos isPlaying a true ni volvemos a llamar a play() porque pediste que no repita.
+        });
+
+        // --- AUTOPLAY TRUCO (Esencial para móviles) ---
+        // 1. Intentar iniciar al cargar
+        window.addEventListener('load', startMusic);
+
+        // 2. CRUCIAL: Iniciar al primer toque en cualquier parte de la pantalla
+        document.body.addEventListener('click', () => {
+            if (!isPlaying && audio.currentTime === 0) { // Solo si no ha sonado aun
+                startMusic();
+            }
+        }, { once: true });
+
+        document.body.addEventListener('touchstart', () => {
+             if (!isPlaying && audio.currentTime === 0) {
+                startMusic();
+            }
+        }, { once: true });
+
+
         // --- NAVEGACIÓN ---
         function navTo(pageId) {
             const sections = document.querySelectorAll('section');
