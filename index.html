@@ -226,7 +226,7 @@
         h3 {
             font-family: var(--font-title);
             color: #f7ffb1;
-            font-size: 1rem;
+            font-size: 1.2rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 0px #000;
             text-align: center;
@@ -246,7 +246,7 @@
             padding: 15px;
             border-radius: 15px;
             border: 2px solid var(--color-yellow);
-            font-size: 1.05rem;
+            font-size: 1.3rem;
             width: 100%;
             max-width: 320px;
             margin-bottom: 15px;
@@ -366,11 +366,12 @@
         }
 
         /* ------------------------------------------------------------- */
-        /* 🔥 AJUSTES ESPECÍFICOS: SHOW Y LOCAL (Pantalla casi completa 9:16) */
+        /* 🔥 AJUSTES ESPECÍFICOS: SHOW, LOCAL Y REGALOS (Pantalla casi completa 9:16) */
         /* ------------------------------------------------------------- */
         
         #page-show .content-wrapper,
-        #page-local .content-wrapper {
+        #page-local .content-wrapper,
+        #page-regalos .content-wrapper {
             justify-content: flex-start; /* Alineamos arriba para aprovechar espacio */
             padding: 0; /* Eliminamos padding lateral/vertical excesivo */
             padding-top: 15px;
@@ -379,7 +380,7 @@
         }
 
         /* Reducción de textos solo para estas páginas */
-        #page-show h2, #page-local h2 {
+        #page-show h2, #page-local h2, #page-regalos h2 {
             font-size: 1.1rem;
             margin-bottom: 2px;
             margin-top: 0;
@@ -387,7 +388,7 @@
             text-shadow: 1px 1px 2px #000;
         }
         
-        #page-show h3, #page-local h3 {
+        #page-show h3, #page-local h3, #page-regalos h3 {
             font-size: 0.8rem;
             margin-bottom: 5px;
             line-height: 1.1;
@@ -399,7 +400,8 @@
 
         /* El contenedor de video GIGANTE - 9:16 a 85% */
         #page-show .video-container, 
-        #page-local .video-container {
+        #page-local .video-container,
+        #page-regalos .video-container {
             /* Forzar el 85% de la altura de la ventana */
             height: 85vh !important;
             
@@ -423,7 +425,8 @@
 
         /* Botón volver más compacto y flotante abajo */
         #page-show .btn-back,
-        #page-local .btn-back {
+        #page-local .btn-back,
+        #page-regalos .btn-back {
             position: absolute;
             bottom: 15px;
             padding: 8px 20px;
@@ -570,7 +573,7 @@
                     <button class="btn-menu btn-ubi" onclick="navTo('page-ubicacion')"><i class="fas fa-map-marker-alt"></i> Ubicación</button>
                     <button class="btn-menu btn-show" onclick="navTo('page-show')"><i class="fas fa-star"></i> Planeta Show</button>
                     <button class="btn-menu btn-local" onclick="navTo('page-local')"><i class="fas fa-home"></i> El Local</button>
-                    <button class="btn-menu btn-regalo" onclick="navTo('page-regalos')"><i class="fas fa-gift"></i> Regalos</button>
+                    <button class="btn-menu btn-regalo" onclick="navTo('page-regalos')"><i class="fas fa-gift"></i> Sorpresa!</button>
                     <button class="btn-menu btn-galeria" onclick="navTo('page-galeria')"><i class="fas fa-images"></i> Galería</button>
                     <button class="btn-menu btn-rsvp" onclick="navTo('page-confirmar')">✅ CONFIRMAR ASISTENCIA</button>
 
@@ -664,19 +667,28 @@
             </div>
         </section>
 
-        <!-- 🎁 REGALOS -->
+        <!-- 🎁 REGALOS - AHORA CON VIDEO 85% -->
         <section id="page-regalos">
             <div class="overlay-bg"></div>
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
                     <h2>Muchas Gracias! 🎁</h2>
-                    <h3>A Deadpool le encantan los amigos… los regalos no tanto.<br>
-                         Tu presencia es el verdadero súper poder. <br>
-                         Si deseas dejar un detallito, el QR te guía.</h3>
-                    <div class="qr-container">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ListaRegalosMatias" alt="QR Regalos" style="width:140px; height:140px;">
+                    <h3>A Spiderman le encantan los amigos….<br>
+                         Tu presencia es el verdadero súper poder, Te espero en mi cumpleaños!. <br>
+                         </h3>
+                    
+                    <!-- NUEVO VIDEO CONTAINER -->
+                    <div class="video-container">
+                        <iframe 
+                            src="spiderman.mp4"
+                            allow="autoplay">
+                        </iframe>
                     </div>
-                    <p>Escanea para ver ideas</p>
+                    
+                    <!-- Nota: El párrafo extra "Muchas gracias" se ha ocultado visualmente por el overflow 
+                         del contenedor, ya que el video ocupa el 85%. Si quieres que se vea, 
+                         deberíamos reducir el video. -->
+                    
                     <button class="btn-back" onclick="navTo('page-home')">⬅ Volver</button>
                 </div>
             </div>
@@ -818,7 +830,11 @@
             '3.jpg',
             '4.jpg',
             '5.jpg',
-            '6.jpg'
+            '6.jpg',
+            '7.jpg',
+            '8.jpg',
+            '9.jpg',
+            '10.jpg',
         ];
 
         let currentImageIndex = 0;
