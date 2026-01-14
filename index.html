@@ -136,12 +136,32 @@
             height: 100%;
         }
 
-        /* --- CORRECCIÓN INVITACIÓN --- */
+        /* --- CORRECCIÓN INVITACIÓN (Ajuste Final para eliminar scroll) --- */
         #page-invitacion .content-wrapper {
-            justify-content: flex-start; /* Alineamos arriba */
-            /* REDUCIDO: Antes 80px, ahora 40px para dar más espacio al texto grande */
-            padding-top: 40px; 
-            padding-bottom: 60px; /* Espacio extra abajo para el botón */
+            justify-content: flex-start; /* Alineación superior */
+            padding-top: 15px; /* Subimos MUCHO el contenido (antes 40px) */
+            padding-bottom: 5px; /* Mínimo espacio abajo */
+            height: 100vh;
+            overflow: hidden; /* Intentamos evitar scroll si es posible */
+        }
+        
+        /* Ajustes específicos para compactar INVITACIÓN */
+        #page-invitacion h1 {
+            margin-top: 25px; /* Espacio justo para no chocar con el borde superior */
+            margin-bottom: 0; /* Sin espacio debajo */
+            line-height: 1;
+        }
+        
+        #page-invitacion .emoji-decoration {
+            font-size: 2rem;
+            margin: 2px 0; /* Mínimo margen */
+        }
+
+        #page-invitacion .invitation-text {
+            /* Mantenemos letra grande pero reducimos padding interno */
+            padding: 10px; 
+            margin-bottom: 10px;
+            margin-top: 5px;
         }
         /* -------------------------------------------- */
 
@@ -608,13 +628,13 @@
             </div>
         </section>
 
-        <!-- 💌 INVITACIÓN -->
+        <!-- 💌 INVITACIÓN COMPACTA -->
         <section id="page-invitacion">
             <div class="overlay-bg"></div>
             <div class="scroll-wrapper">
                 <div class="content-wrapper">
                     <h1>¡ESTÁS INVITADO!</h1>
-                    <div style="font-size: 2.5rem; margin: 5px 0;">🥳✨</div>
+                    <div class="emoji-decoration">🥳✨</div>
                     
                     <div class="invitation-text">
                        ¡Hola! Aquí <strong>Miguel Matías reportándose…</strong>.<br><br>
